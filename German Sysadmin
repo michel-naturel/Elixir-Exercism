@@ -1,7 +1,5 @@
 defmodule Username do
   @lowercase_letters ~c"_abcdefghijklmnopqrstuvwxyz"
-  @numbers ~c"1234567890"
-  @punctuation ~c".?!%$"
   
   def sanitize([]), do: []
   def sanitize([first_char | tail]) do
