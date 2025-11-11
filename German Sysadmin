@@ -1,0 +1,23 @@
+defmodule Username do
+  @lowercase_letters ~c"_abcdefghijklmnopqrstuvwxyz"
+  @numbers ~c"1234567890"
+  @punctuation ~c".?!%$"
+  
+  def sanitize([]), do: []
+  def sanitize([first_char | tail]) do
+    
+    case first_char do
+    # ä becomes ae
+      first_char when first_char == ?ä -> [?a, ?e | sanitize(tail)]
+    # ö becomes oe
+      first_char when first_char == ?ö -> [?o, ?e | sanitize(tail)]
+    # ü becomes ue
+      first_char when first_char == ?ü -> [?u , ?e | sanitize(tail)]
+    # ß becomes ss
+      first_char when first_char == ?ß -> [?s, ?s | sanitize(tail)]
+      first_char when first_char in @lowercase_letters -> [first_char | sanitize(tail)]
+      first_char when first_char not in @lowercase_letters -> sanitize(tail)
+    
+      end
+  end
+end
