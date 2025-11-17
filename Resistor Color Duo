@@ -1,0 +1,20 @@
+defmodule ResistorColorDuo do
+  @doc """
+  Calculate a resistance value from two colors
+  """
+  @spec value(colors :: [atom]) :: integer
+  def value([color1, color2]) do
+    map = %{
+    black: 0, brown: 1, red: 2, orange: 3,
+    yellow: 4, green: 5, blue: 6,
+    violet: 7, grey: 8, white: 9
+    }
+
+    a = map[color1]
+    b = map[color2]
+
+    a * 10 + b
+  end
+
+  def value([c1, c2, _c3]), do: value([c1, c2])
+end
