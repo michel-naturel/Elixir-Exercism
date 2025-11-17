@@ -1,0 +1,28 @@
+defmodule ResistorColorTrio do
+  @doc """
+  Calculate the resistance value in ohms from resistor colors
+  """
+  @spec label(colors :: [atom]) :: {number, :ohms | :kiloohms | :megaohms | :gigaohms}
+  def label([c1, c2, c3]) do
+
+    map = %{black: 0, brown: 1, red: 2, orange: 3, yellow: 4, green: 5, blue: 6, violet: 7, grey: 8, white: 9}
+
+    a = map[c1]
+    b = map[c2]
+
+    cond do
+      c3 == :black -> {a * 10 + b, :ohms}
+      c3 == :brown -> {(a * 10 + b)*10, :ohms}
+      c3 == :red -> {a + 0.1 * b, :kiloohms}
+      c3 == :orange -> {a * 10 + b, :kiloohms}
+      c3 == :yellow -> {(a * 10 + b)*10, :kiloohms}
+      c3 == :green -> {a + 0.1*b, :megaohms}
+      c3 == :blue -> {a * 10 + b, :megaohms}
+      c3 == :violet -> {(a * 10 + b)*10, :megaohms}
+      c3 == :grey -> {a + 0.1*b, :gigaohms}
+      c3 == :white -> {a * 10 + b, :gigaohms}
+    end
+  end
+
+  def label([c1, c2, c3, _c4]), do: label([c1, c2, c3])
+end
