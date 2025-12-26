@@ -1,0 +1,37 @@
+defmodule RomanNumerals do
+  @doc """
+  Convert the number to a roman number.
+  """
+  @spec numeral(pos_integer) :: String.t()
+
+    @roman_numerals [
+    {1000, "M"},
+    {900,  "CM"},
+    {500,  "D"},
+    {400,  "CD"},
+    {100,  "C"},
+    {90,   "XC"},
+    {50,   "L"},
+    {40,   "XL"},
+    {10,   "X"},
+    {9,    "IX"},
+    {5,    "V"},
+    {4,    "IV"},
+    {1,    "I"}
+  ]
+  
+  def numeral(number) when number > 0 and number <= 3999 do
+    do_convert(number, @roman_numerals, "")
+  end
+
+    defp do_convert(0, _mapping, acc), do: acc
+
+  defp do_convert(number, [{arabic, roman} | rest], acc) when number >= arabic do
+    do_convert(number - arabic, [{arabic, roman} | rest], acc <> roman)
+  end
+
+  defp do_convert(number, [_ | rest], acc) do
+    do_convert(number, rest, acc)
+  end
+  
+end
